@@ -130,10 +130,10 @@ class Player(Participant):#args:position,turnCounter,name,cash,sites=[],purchase
                     else:
                         print "Insuficient fund:only "+str(purchas)+"could be added.Your total Purchase for this site is "+str(site.purchase)
                         print 'Try mortgages,you still need the amount'+str((purchase-purchas)*site.purchaseCost[0])
-                        if purchase<5:
-                            if self.mortgageChoice((purchase-purchas)*site.purchaseCost[0]): self.buyPurchase(site,purchase-purchas)
+                        if max<5:
+                            if self.mortgageChoice((max-purchas)*site.purchaseCost[0]): self.buyPurchase(site,purchase-purchas)
                         else:
-                            if self.mortgageChoice((purchase-1-purchas)*site.purchaseCost[0]+site.purchaseCost[1]):self.buyPurchase(site,purchase-purchas)
+                            if self.mortgageChoice((4-purchas)*site.purchaseCost[0]+site.purchaseCost[1]):self.buyPurchase(site,purchase-purchas)
                         break
                 elif purchas==5 :
                     if all([site.purchase==4 for site in self.game.banker.groupCompletness(self,site)]):

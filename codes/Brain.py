@@ -85,6 +85,7 @@ class groupMaker(averseRandom):
             if site.group[1]<=match:complete.append(site)
             elif site.group[1]-match==1:req1.append(site)
             else: rest.append(site)
+        complete=sorted(complete,key=lambda x:x.rent)
         return rest+req1+complete
     def buySite(self,site):
         if self.player.cash>=site.sellingCost:return True
@@ -185,6 +186,24 @@ class futureSimulator(aversegroupMaker2):
             if self.caser==0 :return True
             elif self.caser==1:return False
             else :return super(futureSimulator,self).jail(jailFees)
+    def buyPurchase(self,sites):
+        if self.simulate:
+            final={}
+            result={}
+            for site in sites:
+                for i in range(2):
+                    game = copy.deepcopy(self.game)
+                    self.selfIndex(game)
+                    game.players[self.index].brain.simulate = False
+                    if i==0:
+                        for site1 in game.players[self.index].completeSites:
+                            if site1.name==site.name and game.players[self.index].cash>=site1.purchaseCost[1]:
+                                game.players[self.index].buyPurchase(site1,1)
+                                break
+                            result[i]=self.simulTree(game)
+                        if result[0]>=result[1]:final[site]=1
+            return final
+        else:return super(futureSimulator,self).buyPurchase(sites)
 
 
 
