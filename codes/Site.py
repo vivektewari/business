@@ -41,7 +41,7 @@ class Site(Card):
                 paymentToBank+=0.5*self.rent
                 Logger.info("owner to transfer 50% of the rent as the site was in mortgage")
             if self.owner in self.game.jail.keys():
-                paymentToBank+=0.1*min(paymentToBank,self.rent)
+                paymentToBank+=0.1*max(paymentToBank,self.rent)
                 Logger.info("owner to transfer 10 % of its income as owner in jail")
             self.owner.obligation(self.game.banker,int(paymentToBank))
             if paymentToBank<>0:Logger.info("owner transfering jail/mortgage charges to bank on rent earning ="+str(int(paymentToBank)))
@@ -54,7 +54,7 @@ class Site(Card):
         if str(self.owner.__class__.__name__)<>'Banker':
             if self in self.owner.completeSites:
                 self.rent=self.group[2]
-        if oldRent<>self.rent:Logger.info(str(self.name)+"rent updated to ="+str(self.rent))
+        if oldRent<>self.rent:Logger.info(str(self.name)+" rent updated to ="+str(self.rent))
         return oldRent<>self.rent
 
     def changeOwner(self,owner):

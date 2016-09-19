@@ -3,6 +3,7 @@ from abc import ABCMeta,abstractmethod
 from main import simulator
 import random,copy
 from Logger import Logger
+
 class Brain(object):
     __metaclass__ = ABCMeta
     decisionCodes={'buySite','buyPurchase','mortgage','payMortgage','jail'}
@@ -117,16 +118,27 @@ class aversegroupMaker2(groupMaker):
 
     def buySite(self,site):
         if self.player.groupCompletness(site) <> [] and site.sellingCost-self.player.cash<50:return True
-        if self.siteToBuy()>1 and self.player.cash<150 and self.player.groupCompletness(site) == []:return False
+        elif self.siteToBuy()>1 and self.player.cash<150 and self.player.groupCompletness(site) == []:return False
         elif self.player.cash - 100 >= site.sellingCost:return True
         return False
     def jail(self,jailFees):
         if self.player.cash>=jailFees-100 :
             if (self.player.cash/float(self.player.initialMoney))>0.5 or self.siteToBuy()>1: return True
         return False
+    def payMortgage(self,sites):
+        final=[]
+        cash=self.player.cash
+        temp=self.priorityOrder(sites)
+        temp.reverse()
+        for site in temp:
+            cash-=int(site.mortgage*1.4)
+            if cash>0:final.append(site)
+            else:break
+        return final
+
 class futureSimulator(aversegroupMaker2):
 
-    def __init__(self,player,game,numSimulation=100,simulate=True):
+    def __init__(self,player,game,numSimulation=20,simulate=True):
         self.simulate=simulate
         self.caser=-1
         self.numSimulation=numSimulation

@@ -63,7 +63,7 @@ class Banker(Participant):  # arguments order->name,cash
             if player2 <> self:
                 if len(completeness) == 0:
                     completeness = set(player2.groupCompletness(site))
-                    completeness ^= set(player2.completeSites)
+                    completeness =completeness | set(player2.completeSites)
                     player2.completeSites = list(completeness)
             for sites1 in completeness:
                 if str(sites1.__class__.__name__) == 'CitiSite' and player1 <> self:

@@ -10,7 +10,7 @@ class TransportSite(Site):
                 if site.group[0]==self.group[0] and site<>self:
                     match+=1
             self.rent=match*self.baseRent
-            if self.rent<>oldRent:Logger.info('rent update to:'+str(self.rent))
+            if self.rent<>oldRent:Logger.info(str(self.name)+' rent update to:'+str(self.rent))
         return self.rent<>oldRent
 
 if __name__=='__main__':

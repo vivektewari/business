@@ -40,7 +40,8 @@ class Participant(object):
         :param site: Site
         :return:the whole group of site  if a  particular site completes the group
         """
-        match=0
+        if site.owner==self:match=0
+        else:match=1
         siteList=[]
         for sites1 in self.sites:
             if sites1.group[0]==site.group[0]:

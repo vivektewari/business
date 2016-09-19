@@ -104,14 +104,17 @@ class Game(object):
     def jailUpdation(self,player):
         if player in self.jail.keys():
             self.jail[player]+=1
-            if self.jail[player]>3 :del self.jail[player]
+            if self.jail[player]>=3 :del self.jail[player]
             return True
         return False
     def turnCounter(self,player):
-        player.turnCounter()
         self.banker.turnCounter(player)
-        self.jailUpdation(player)
-        return True
+        if player in self.jail.keys():
+            self.jailUpdation(player)
+        else:
+            player.turnCounter()
+            return True
+        return False
 
 
 

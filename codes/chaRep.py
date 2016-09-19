@@ -9,7 +9,7 @@ class LuckCardHolder(Card):
             super(LuckCardHolder,self).__init__(*args)
 
     def execute(self, player, dice=0):
-        self.cardSet[randint(0, len(self.cardSet) - 1)].execute(player, dice=0)
+        self.cardSet[randint(0, len(self.cardSet) - 1)].execute(player, dice)
 
 
 
@@ -59,7 +59,9 @@ class ChaRep(object):
             elif float(self.gotoPosition)%1<>0:
                 position=player.position+int(self.gotoPosition)
                 if position<0: position=40+position
-            else :position=int(self.gotoPosition)
+            else :
+                position=int(self.gotoPosition)
+                if position<0:position=player.position+position
             self.goTo( player,position, self.game,dice)
         if amount <> 0:
             Logger.info("transferred to player="+str(amount)+" transferred to other player="+str(self.theirMoney))

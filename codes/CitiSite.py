@@ -37,7 +37,7 @@ class CitiSite(Site):
             self.purchase=0
         elif self.purchase>0:
             self.rent=self.rentPurchase[self.purchase-1]
-        if oldRent <> self.rent: Logger.info("rent updated to =" + str(self.rent))
+        if oldRent <> self.rent: Logger.info(str(self.name)+ " rent updated to =" + str(self.rent))
         return oldRent<>self.rent
 
 if __name__ == '__main__':
