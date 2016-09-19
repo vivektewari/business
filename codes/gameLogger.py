@@ -1,4 +1,4 @@
-
+#not in use
 import logging
 from datetime import datetime
 gameLogger = logging.getLogger('simple_logger')
