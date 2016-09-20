@@ -188,8 +188,9 @@ def main(thread=False,multiProcess=False,n=100,brains=[],process=cpu_count()):
     ww.save("D:\\vivek\\Business\\monopolyfiles\\writtenByVivek.xls")
 if __name__ == "__main__":
     #brains=[Brain.pureRandom,Brain.averseRandom,Brain.groupMaker,Brain.aversegroupMaker2,Brain.futureSimulator]
+    Brain.futureSimulator.changeNumSimul(10)
     brains=[Brain.futureSimulator,Brain.aversegroupMaker2,Brain.groupMaker,Brain.pureRandom]#
-    x1=10
+    x1=5
     #sys.stdout = f
     #main(n=x1,brains=brains)
     sys.stdout = f

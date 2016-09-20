@@ -8,7 +8,7 @@ class Brain(object):
     __metaclass__ = ABCMeta
     decisionCodes={'buySite','buyPurchase','mortgage','payMortgage','jail'}
     description=""
-    def __init__(self,player,game):
+    def __init__(self,player="",game=""):
         self.player=player
         self.game=game
     @abstractmethod
@@ -137,8 +137,12 @@ class aversegroupMaker2(groupMaker):
         return final
 
 class futureSimulator(aversegroupMaker2):
+    _numSimulation=1
 
-    def __init__(self,player,game,numSimulation=20,simulate=True):
+    @classmethod
+    def changeNumSimul(cls,value):
+        cls._numSimulation=value
+    def __init__(self,player="",game="",numSimulation=_numSimulation,simulate=True):
         self.simulate=simulate
         self.caser=-1
         self.numSimulation=numSimulation
@@ -212,8 +216,8 @@ class futureSimulator(aversegroupMaker2):
                             if site1.name==site.name and game.players[self.index].cash>=site1.purchaseCost[1]:
                                 game.players[self.index].buyPurchase(site1,1)
                                 break
-                            result[i]=self.simulTree(game)
-                        if result[0]>=result[1]:final[site]=1
+                    result[i]=self.simulTree(game)
+                if result[0]>=result[1]:final[site]=1
             return final
         else:return super(futureSimulator,self).buyPurchase(sites)
 
